@@ -1,0 +1,14 @@
+C:\learn_C#\loop\bin\Debug\net9.0\loop.exe
+C:\learn_C#\loop\bin\Debug\net9.0\loop.deps.json
+C:\learn_C#\loop\bin\Debug\net9.0\loop.runtimeconfig.json
+C:\learn_C#\loop\bin\Debug\net9.0\loop.dll
+C:\learn_C#\loop\bin\Debug\net9.0\loop.pdb
+C:\learn_C#\loop\obj\Debug\net9.0\loop.GeneratedMSBuildEditorConfig.editorconfig
+C:\learn_C#\loop\obj\Debug\net9.0\loop.AssemblyInfoInputs.cache
+C:\learn_C#\loop\obj\Debug\net9.0\loop.AssemblyInfo.cs
+C:\learn_C#\loop\obj\Debug\net9.0\loop.csproj.CoreCompileInputs.cache
+C:\learn_C#\loop\obj\Debug\net9.0\loop.dll
+C:\learn_C#\loop\obj\Debug\net9.0\refint\loop.dll
+C:\learn_C#\loop\obj\Debug\net9.0\loop.pdb
+C:\learn_C#\loop\obj\Debug\net9.0\loop.genruntimeconfig.cache
+C:\learn_C#\loop\obj\Debug\net9.0\ref\loop.dll

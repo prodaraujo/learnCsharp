@@ -1,0 +1,14 @@
+C:\learn_C#\cadastro\bin\Debug\net9.0\cadastro.exe
+C:\learn_C#\cadastro\bin\Debug\net9.0\cadastro.deps.json
+C:\learn_C#\cadastro\bin\Debug\net9.0\cadastro.runtimeconfig.json
+C:\learn_C#\cadastro\bin\Debug\net9.0\cadastro.dll
+C:\learn_C#\cadastro\bin\Debug\net9.0\cadastro.pdb
+C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.GeneratedMSBuildEditorConfig.editorconfig
+C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.AssemblyInfoInputs.cache
+C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.AssemblyInfo.cs
+C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.csproj.CoreCompileInputs.cache
+C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.dll
+C:\learn_C#\cadastro\obj\Debug\net9.0\refint\cadastro.dll
+C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.pdb
+C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.genruntimeconfig.cache
+C:\learn_C#\cadastro\obj\Debug\net9.0\ref\cadastro.dll
