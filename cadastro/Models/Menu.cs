@@ -1,10 +1,22 @@
 using ModelsPessoa;
 using ModelsDadosPessoa;
+using System.Data.SQLite;
 
 namespace ModelsMenu;
 
 public class Menu 
 {
+    // Conexão com o banco de dados SQLite
+    string connectionString = "Data Source=cadastro.db;Version=3";
+
+    using (var connection = new SQLiteConnection(connectionString))
+    {
+        connection.Open();
+        Console.WriteLine("Conexão estabelecida com sucesso!");
+    }
+
+
+
     private List<DadosPessoa> pessoas = new List<DadosPessoa>();
     private int idPessoa = 1;
     
