@@ -1,6 +1,7 @@
 ﻿using ModelsPessoa;
 using ModelsDadosPessoa;
 using ModelsMenu;
+using System.Data.SQLite;
 
 namespace cadastro;
 

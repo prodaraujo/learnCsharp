@@ -9,16 +9,26 @@ public class Menu
     // Conexão com o banco de dados SQLite
     string connectionString = "Data Source=cadastro.db;Version=3";
 
-    using (var connection = new SQLiteConnection(connectionString))
+    public void DbConnection()
     {
-        connection.Open();
-        Console.WriteLine("Conexão estabelecida com sucesso!");
+        using (var connection = new SQLiteConnection(connectionString))
+        {
+            connection.Open();
+
+            string sql = @"
+                CREATE TABLE IF NOT EXISTS cadastro (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Nome TEXT NOT NULL,
+                Telefone TEXT,
+                Email TEXT
+            );";
+
+            using (var command = new SQLiteCommand(sql, connection))
+            {
+                command.ExecuteNonQuery();
+            }
+        }
     }
-
-
-
-    private List<DadosPessoa> pessoas = new List<DadosPessoa>();
-    private int idPessoa = 1;
     
     public void ExibirMenu()
     {
@@ -52,7 +62,7 @@ public class Menu
                     break;
                 case 4:
                     RemoverPessoa();
-                    break;    
+                    break;   
                 case 5:
                     Console.WriteLine("\nSaindo do programa...\n");
                     return;
@@ -63,49 +73,78 @@ public class Menu
         }
     }            
     
-    private void AdicionarPessoa() 
+    public void AdicionarPessoa() 
     {
+        DbConnection();
+
         Console.Write("\nDigite o nome da pessoa: ");
-        string? nomePessoa = Console.ReadLine();
+        string nomePessoa = Console.ReadLine();
+        nomePessoa ??="Nome Desconhecido";
 
         Console.Write("\nDigite o telefone: ");
-        string? telefonePessoa = Console.ReadLine();
+        string telefonePessoa = Console.ReadLine();
+        telefonePessoa ??="Telefone Desconhecido";
 
         Console.Write("\nDigite o e-mail: ");
-        string? emailPessoa = Console.ReadLine();
+        string emailPessoa = Console.ReadLine();
+        emailPessoa ??="E-mail Desconhecido";
 
         DadosPessoa pessoa = new DadosPessoa
         {
-            id = idPessoa,
             nome = nomePessoa,
             telefone = telefonePessoa,
             email = emailPessoa
         };
 
-        pessoas.Add(pessoa);
-        idPessoa++;
+        using (var connection = new SQLiteConnection(connectionString))
+        {
+            connection.Open();
+            string sql = "INSERT INTO cadastro (Nome, Telefone, Email) VALUES (@Nome, @Telefone, @Email)";
 
-        Console.WriteLine($"\n{nomePessoa} foi adionado(a) com sucesso!\n");
+            using (var command = new SQLiteCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@Nome", nomePessoa);
+                command.Parameters.AddWithValue("@Telefone", telefonePessoa);
+                command.Parameters.AddWithValue("@Email", emailPessoa);
+                command.ExecuteNonQuery();
+                Console.WriteLine($"\n{nomePessoa} cadastrado(a) com sucesso!");
+            }
+        }        
+    } 
+
+    public void ExibirPessoa()    
+    {
+        DbConnection();
+
+        using (var connection = new SQLiteConnection(connectionString))
+        {
+            connection.Open();
+            string sql = "SELECT * FROM cadastro";
+
+            using (var command = new SQLiteCommand(sql, connection))
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    if (!reader.HasRows)
+                    {
+                        Console.WriteLine("\nNenhuma pessoa cadastrada!\n");
+                        return;
+                    }
+
+                    Console.WriteLine("\n--- Lista de Pessoas ---\n");
+                    while (reader.Read())
+                    {
+                        Console.WriteLine($"Nome: {reader["Nome"]} - ID: #{reader["Id"]}\nTelefone: {reader["Telefone"]}\nE-mail: {reader["Email"]}\n");
+                    }
+                }
+            }   
+        }
     }
 
-    private void ExibirPessoa()    
+    public void EditarPessoa()
     {
-        if (pessoas.Count==0)
-        {
-            Console.WriteLine("\nNenhuma pessoa cadastrada!\n");
-            return;
-        }
+        DbConnection();
 
-        Console.WriteLine("\n--- Lista de nomes ---\n");
-        
-        foreach (DadosPessoa pessoa in pessoas)
-        {
-            Console.WriteLine($"Nome: {pessoa.nome} - ID: #{pessoa.id}\nTelefone: {pessoa.telefone}\nE-mail: {pessoa.email}\n");
-        }
-    }
-
-    private void EditarPessoa()
-    {
         Console.Write("\nInforme o ID da pessoa: ");
         string? inputID = Console.ReadLine();
         if (!int.TryParse(inputID, out int idPessoaConsulta))
@@ -114,104 +153,65 @@ public class Menu
             return;
         }
 
-        DadosPessoa? pessoaEncontrada = null;
+        Console.Write("\nDigite o novo nome: ");
+        string? novoNomePessoa = Console.ReadLine();
 
-        foreach (DadosPessoa pessoa in pessoas)
+        Console.Write("\nDigite o novo telefone: ");
+        string? novoTelefonePessoa = Console.ReadLine();
+
+        Console.Write("\nDigite o novo e-mail: ");
+        string? novoEmailPessoa = Console.ReadLine();
+
+        using (var connection = new SQLiteConnection(connectionString))
         {
-            if (pessoa.id == idPessoaConsulta)
+            connection.Open();
+            string sql = "UPDATE cadastro SET Nome = @Nome, Telefone = @Telefone, Email = @Email WHERE Id = @Id";
+
+            using (var command = new SQLiteCommand(sql, connection))
             {
-                pessoaEncontrada = pessoa;
-                break; // Encerra o loop ao encontrar a pessoa
+                command.Parameters.AddWithValue("@Id", idPessoaConsulta);
+                command.Parameters.AddWithValue("@Nome", novoNomePessoa);
+                command.Parameters.AddWithValue("@Telefone", novoTelefonePessoa);
+                command.Parameters.AddWithValue("@Email", novoEmailPessoa);
+                command.ExecuteNonQuery();
+
+                Console.WriteLine("\nEdição concluída com sucesso!\n");
             }
         }
-
-        if (pessoaEncontrada == null)
-        {
-            Console.WriteLine("\nPessoa não encontrada!\n");
-            return;
-        }
-
-        Console.WriteLine($"\nPessoa encontrada: Nome: {pessoaEncontrada.nome}, ID: {pessoaEncontrada.id}\n");
-
-        Console.WriteLine($"\nDeseja editar os dados de {pessoaEncontrada.nome} - ID: #{pessoaEncontrada.id}? (S/N)");
-        string? editarOption = Console.ReadLine()?.ToUpper();
-
-        if (editarOption != "S")
-        {
-            Console.WriteLine("\nEdição cancelada!");
-            return;
-        }
-
-        // Editar o nome
-        Console.WriteLine("\nQuer editar o nome? (S/N)");
-        string? editarNome = Console.ReadLine()?.ToUpper();
-        if (editarNome == "S")
-        {
-            Console.Write("\nDigite o novo nome: ");
-            pessoaEncontrada.nome = Console.ReadLine();
-        }
-
-        // Editar o telefone
-        Console.WriteLine("\nQuer editar o telefone? (S/N)");
-        string? editarTelefone = Console.ReadLine()?.ToUpper();
-        if (editarTelefone == "S")
-        {
-            Console.Write("\nDigite o novo telefone: ");
-            pessoaEncontrada.telefone = Console.ReadLine();
-        }
-
-        // Editar o e-mail
-        Console.WriteLine("\nQuer editar o e-mail? (S/N)");
-        string? editarEmail = Console.ReadLine()?.ToUpper();
-        if (editarEmail == "S")
-        {
-            Console.Write("\nDigite o novo e-mail: ");
-            pessoaEncontrada.email = Console.ReadLine();
-        }
-
-        Console.WriteLine("\nEdição concluída com sucesso!\n");
     }
 
     public void RemoverPessoa()
     {
-        Console.Write("\nInforme o ID da pessoa: ");
+        DbConnection();
+
+        Console.Write("\nInforme o ID da pessoa que deseja remover: ");
         string? inputID = Console.ReadLine();
+
         if (!int.TryParse(inputID, out int idPessoaConsulta))
         {
             Console.WriteLine("\nID inválido!");
             return;
         }
 
-        DadosPessoa? pessoaEncontrada = null;
-
-        foreach (DadosPessoa pessoa in pessoas)
+        using (var connection = new SQLiteConnection(connectionString))
         {
-            if (pessoa.id == idPessoaConsulta)
+            connection.Open();
+            string sql = "DELETE FROM cadastro WHERE Id = @Id";
+
+            using (var command = new SQLiteCommand(sql, connection))
             {
-                pessoaEncontrada = pessoa;
-                break; // Encerra o loop ao encontrar a pessoa
+                command.Parameters.AddWithValue("@Id", idPessoaConsulta);
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    Console.WriteLine("\nPessoa removida com sucesso!");
+                }
+                else
+                {
+                    Console.WriteLine("\nID não encontrado!");
+                }
             }
         }
-
-        if (pessoaEncontrada == null)
-        {
-            Console.WriteLine("\nPessoa não encontrada!\n");
-            return;
-        }
-
-        Console.WriteLine($"\nPessoa encontrada: Nome: {pessoaEncontrada.nome}, ID: {pessoaEncontrada.id}\n");
-
-        Console.WriteLine($"\nDeseja remover os dados de {pessoaEncontrada.nome} - ID: #{pessoaEncontrada.id}? (S/N)");
-        string? removerOption = Console.ReadLine()?.ToUpper();
-
-        if (removerOption != "S")
-        {
-            Console.WriteLine("\nRemoção cancelada!");
-            return;
-        }
-
-        pessoas.Remove(pessoaEncontrada);
-
-        Console.WriteLine($"\nPessoa removida com sucesso!\n");
     }
 }
