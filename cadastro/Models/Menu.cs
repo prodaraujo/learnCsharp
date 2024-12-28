@@ -7,7 +7,7 @@ namespace ModelsMenu;
 public class Menu 
 {
     // Conexão com o banco de dados SQLite
-    string connectionString = "Data Source=cadastro.db;Version=3";
+    string connectionString = "Data Source=cadastro.db;";
 
     public void DbConnection()
     {
