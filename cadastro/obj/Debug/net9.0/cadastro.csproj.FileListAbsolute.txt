@@ -13,3 +13,4 @@ C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.pdb
 C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.genruntimeconfig.cache
 C:\learn_C#\cadastro\obj\Debug\net9.0\ref\cadastro.dll
 C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.sourcelink.json
+C:\learn_C#\cadastro\obj\Debug\net9.0\cadastro.csproj.AssemblyReference.cache
