@@ -1,0 +1,15 @@
+C:\learn_C#\calculadora\bin\Debug\net9.0\calculadora.exe
+C:\learn_C#\calculadora\bin\Debug\net9.0\calculadora.deps.json
+C:\learn_C#\calculadora\bin\Debug\net9.0\calculadora.runtimeconfig.json
+C:\learn_C#\calculadora\bin\Debug\net9.0\calculadora.dll
+C:\learn_C#\calculadora\bin\Debug\net9.0\calculadora.pdb
+C:\learn_C#\calculadora\obj\Debug\net9.0\calculadora.GeneratedMSBuildEditorConfig.editorconfig
+C:\learn_C#\calculadora\obj\Debug\net9.0\calculadora.AssemblyInfoInputs.cache
+C:\learn_C#\calculadora\obj\Debug\net9.0\calculadora.AssemblyInfo.cs
+C:\learn_C#\calculadora\obj\Debug\net9.0\calculadora.csproj.CoreCompileInputs.cache
+C:\learn_C#\calculadora\obj\Debug\net9.0\calculadora.sourcelink.json
+C:\learn_C#\calculadora\obj\Debug\net9.0\calculadora.dll
+C:\learn_C#\calculadora\obj\Debug\net9.0\refint\calculadora.dll
+C:\learn_C#\calculadora\obj\Debug\net9.0\calculadora.pdb
+C:\learn_C#\calculadora\obj\Debug\net9.0\calculadora.genruntimeconfig.cache
+C:\learn_C#\calculadora\obj\Debug\net9.0\ref\calculadora.dll
