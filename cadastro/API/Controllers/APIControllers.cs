@@ -17,7 +17,7 @@ public class ClientesController : ControllerBase
     }
 
     // GET: api/Clientes
-    [HttpGet]
+    [HttpGet("/Ler")]
     public IActionResult GetClientes()
     {
         var clientes = _context.Clientes.ToList();  // Mantendo a DbSet Clientes no contexto

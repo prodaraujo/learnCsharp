@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exibir Dados da API</title>
+</head>
+<body>
+    <h1>Dados da API</h1>
+    <button onclick="fetchData()">Carregar Dados</button>
+
+    <div id="resultado">
+        <strong>Os dados da API serão exibidos aqui.</strong>
+    </div>
+
+    <script>
+        const URL = "http://localhost:5138/Ler"; // URL da API
+
+        // Função para consumir o endpoint GET e exibir os dados
+        async function fetchData() {
+            try {
+                const response = await fetch(URL); // Realiza a requisição GET
+                const data = await response.json(); // Converte a resposta em JSON
+
+                // Exibe os dados recebidos na página
+                const resultadoDiv = document.getElementById('resultado');
+                    // Cria uma lista dos dados recebidos
+                    let resultadoHTML = '<ul>';
+                    data.forEach(item => {
+                        resultadoHTML += `<li>ID: ${item.id} - Nome: ${item.nome} - Telefone: ${item.telefone}</li>`;
+                    });
+                    resultadoHTML += '</ul>';
+                    resultadoDiv.innerHTML = resultadoHTML;
+            } catch (error) {
+                console.error("Erro ao buscar dados:", error);
+                document.getElementById('resultado').innerHTML = "<strong>Erro ao carregar os dados.</strong>";
+            }
+        }
+    </script>
+</body>
+</html>
