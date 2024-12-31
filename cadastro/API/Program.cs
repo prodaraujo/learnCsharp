@@ -23,6 +23,15 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Configura o CORS para permitir o frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin() // Permite qualquer origem (não recomendado em produção)
+                         .AllowAnyMethod() // Permite qualquer método (GET, POST, etc.)
+                         .AllowAnyHeader()); // Permite qualquer cabeçalho
+});
+
 var app = builder.Build();
 
 // Habilitando o Swagger e o Swagger UI
@@ -36,8 +45,13 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// Habilita o CORS antes do middleware de roteamento
+app.UseCors("AllowAllOrigins");
+
 app.UseHttpsRedirection();
+
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

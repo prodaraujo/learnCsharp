@@ -3,39 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exibir Dados da API</title>
+    <title>Gerenciar Dados da API</title>
+    <link rel="stylesheet" href="styles.css"> <!-- CSS externo -->
 </head>
 <body>
-    <h1>Dados da API</h1>
-    <button onclick="fetchData()">Carregar Dados</button>
+    <div class="container">
+        <header>
+            <h1>Gerenciar Dados da API</h1>
+        </header>
 
-    <div id="resultado">
-        <strong>Os dados da API serão exibidos aqui.</strong>
+        <!-- Botões para cada operação -->
+        <div class="button-container">
+            <button onclick="GET()">Exibir Usuários</button>
+        </div>
+
+        <!-- Adicionar Cliente -->
+        <section class="form-section">
+            <h2>Adicionar Novo Usuário</h2>
+            <div class="input-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" placeholder="Nome">
+            </div>
+            <div class="input-group">
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" placeholder="Telefone">
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Email">
+            </div>
+            <button onclick="POST()">Adicionar</button>
+        </section>
+
+        <!-- Atualizar Cliente -->
+        <section class="form-section">
+            <h2>Atualizar Dados do Usuário</h2>
+            <div class="input-group">
+                <label for="idUpdate">ID:</label>
+                <input type="number" id="idUpdate" placeholder="ID de Usuário">
+            </div>
+            <div class="input-group">
+                <label for="nomeUpdate">Nome:</label>
+                <input type="text" id="nomeUpdate" placeholder="Novo Nome">
+            </div>
+            <div class="input-group">
+                <label for="telefoneUpdate">Telefone:</label>
+                <input type="text" id="telefoneUpdate" placeholder="Novo Telefone">
+            </div>
+            <div class="input-group">
+                <label for="emailUpdate">Email:</label>
+                <input type="email" id="emailUpdate" placeholder="Novo Email">
+            </div>
+            <button onclick="PUT()">Atualizar</button>
+        </section>
+
+        <!-- Deletar Cliente -->
+        <section class="form-section">
+            <h2>Deletar Dados do Usuário</h2>
+            <div class="input-group">
+                <label for="idDelete">ID:</label>
+                <input type="number" id="idDelete" placeholder="ID de Usuário">
+            </div>
+            <button onclick="DELETE()">Deletar Usuário</button>
+        </section>
+
+        <!-- Exibição do Resultado -->
+        <section id="resultado" class="result-section">
+            <strong>Resultado será exibido aqui...</strong>
+        </section>
     </div>
 
-    <script>
-        const URL = "http://localhost:5138/Ler"; // URL da API
-
-        // Função para consumir o endpoint GET e exibir os dados
-        async function fetchData() {
-            try {
-                const response = await fetch(URL); // Realiza a requisição GET
-                const data = await response.json(); // Converte a resposta em JSON
-
-                // Exibe os dados recebidos na página
-                const resultadoDiv = document.getElementById('resultado');
-                    // Cria uma lista dos dados recebidos
-                    let resultadoHTML = '<ul>';
-                    data.forEach(item => {
-                        resultadoHTML += `<li>ID: ${item.id} - Nome: ${item.nome} - Telefone: ${item.telefone}</li>`;
-                    });
-                    resultadoHTML += '</ul>';
-                    resultadoDiv.innerHTML = resultadoHTML;
-            } catch (error) {
-                console.error("Erro ao buscar dados:", error);
-                document.getElementById('resultado').innerHTML = "<strong>Erro ao carregar os dados.</strong>";
-            }
-        }
-    </script>
+    <script src="script.js"></script> <!-- O arquivo JS que contém as funções de requisição -->
 </body>
 </html>

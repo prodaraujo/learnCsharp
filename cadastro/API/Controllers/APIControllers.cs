@@ -25,7 +25,7 @@ public class ClientesController : ControllerBase
     }
 
     // GET: api/Clientes/5
-    [HttpGet("{id}")]
+    [HttpGet("/Ler/{id}")]
     public IActionResult GetCliente(int id)
     {
         var cliente = _context.Clientes.Find(id);  // Alterado para "Cadastro"
@@ -37,7 +37,7 @@ public class ClientesController : ControllerBase
     }
 
     // POST: api/Clientes
-    [HttpPost]
+    [HttpPost("/Adicionar")]
     public IActionResult PostCliente(Cadastro cliente)  // Usando Cadastro em vez de Cliente
     {
         _context.Clientes.Add(cliente);  // DbSet Clientes
@@ -46,7 +46,7 @@ public class ClientesController : ControllerBase
     }
 
     // PUT: api/Clientes/5
-    [HttpPut("{id}")]
+    [HttpPut("/Alterar/{id}")]
     public IActionResult PutCliente(int id, Cadastro cliente)  // Usando Cadastro em vez de Cliente
     {
         if (id != cliente.Id)
@@ -61,7 +61,7 @@ public class ClientesController : ControllerBase
     }
 
     // DELETE: api/Clientes/5
-    [HttpDelete("{id}")]
+    [HttpDelete("/Excluir/{id}")]
     public IActionResult DeleteCliente(int id)
     {
         var cliente = _context.Clientes.Find(id);  // Alterado para "Cadastro"
